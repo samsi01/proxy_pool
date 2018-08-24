@@ -21,11 +21,13 @@ class MongodbClient(object):
         self.name = name
 
         if auth == 1:
-            uri = "mongodb://{0}:{1}@{2}:{3}/{4}".format(user,pwd,host,port,name)
+            uri = "mongodb://{0}:{1}@{2}:{3}/admin".format(user, pwd, host, port, name)
         else:
-            uri = "mongodb://{1}:{2}/{3}".format(host,port,name)
+            uri = "mongodb://{1}:{2}".format(host, port)
 
         self.client = MongoClient(uri)
+        # 切换到主库
+        self.db = eval("self.client.{0}".format(name))
 
     def changeTable(self, name):
         self.name = name
