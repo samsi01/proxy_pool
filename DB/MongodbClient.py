@@ -19,10 +19,13 @@ from pymongo import MongoClient
 class MongodbClient(object):
     def __init__(self, name, host, port, auth = 0, user = '', pwd = ''):
         self.name = name
-        self.client = MongoClient(host, port)
-        self.db = self.client.proxy
+
         if auth == 1:
-            self.authenticate(user, pwd)
+            uri = "mongodb://{0}:{1}@{2}:{3}/{4}".format(user,pwd,host,port,name)
+        else:
+            uri = "mongodb://{1}:{2}/{3}".format(host,port,name)
+
+        self.client = MongoClient(uri)
 
     def changeTable(self, name):
         self.name = name
