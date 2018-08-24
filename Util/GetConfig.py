@@ -51,11 +51,11 @@ class GetConfig(object):
 
     @LazyProperty
     def db_user(self):
-        return int(self.config_file.get('DB', 'user'))
+        return self.config_file.get('DB', 'user')
 
     @LazyProperty
     def db_pwd(self):
-        return int(self.config_file.get('DB', 'pwd'))
+        return self.config_file.get('DB', 'pwd')
 
     @LazyProperty
     def proxy_getter_functions(self):
