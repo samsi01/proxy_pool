@@ -17,10 +17,12 @@ from pymongo import MongoClient
 
 
 class MongodbClient(object):
-    def __init__(self, name, host, port):
+    def __init__(self, name, host, port, auth = 0, user = '', pwd = ''):
         self.name = name
         self.client = MongoClient(host, port)
         self.db = self.client.proxy
+        if auth == 1:
+            self.authenticate(user, pwd)
 
     def changeTable(self, name):
         self.name = name
